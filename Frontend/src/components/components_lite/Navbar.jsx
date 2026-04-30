@@ -6,7 +6,7 @@ import {Avatar, AvatarImage } from "../ui/avatar";
 import { LogOut, User2 } from "lucide-react";
 
 const Navbar = () => {
-  const user = true;
+  const user = false;
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
@@ -25,8 +25,12 @@ const Navbar = () => {
           {
            !user ? (
             <div className="flex items-center gap-2">
-            <Button variant="outline">Login</Button>
-            <Button className="hover:text-white hover:bg-red-800 bg-pink-400">Register</Button>
+              <Link to={"/login"}>
+            <Button className="hover:text-white hover:bg-blue-900 bg-gray-400">Login</Button>
+            </Link>
+            <Link to={"/register"}>
+            <Button className="hover:text-white hover:bg-blue-900 bg-gray-400">Register</Button>
+            </Link>
             </div>
             
            ) :(

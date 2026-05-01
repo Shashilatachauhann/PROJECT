@@ -14,10 +14,10 @@ const JobCards = () => {
         <p className='text-md text-gray-500'>Senior Software Engineer Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ut laudantium esse veritatis quam? Amet dolore error fuga ab nam!</p>
     </div>
     <div className='flex gap-2 items-center mt-4'>
-        <Badge className="text-white mx-3 bg-blue-900 rounded-md">10 Position</Badge>
-        <Badge className="text-white mx-3 bg-red-900 rounded-md">20 LPA</Badge>
-        <Badge className="text-white mx-3 bg-blue-900 rounded-md">Remote</Badge>
-        <Badge className="text-white mx-3 bg-red-900 rounded-md">Full Time</Badge>
+        <Badge className="bg-white mx-3 text-blue-900 rounded-md">10 Position</Badge>
+        <Badge className="bg-white mx-3 text-red-900 rounded-md">20 LPA</Badge>
+        <Badge className="bg-white mx-3 text-blue-900 rounded-md">Remote</Badge>
+        <Badge className="bg-white mx-3 text-red-900 rounded-md">Full Time</Badge>
     </div>
     </div>
   )

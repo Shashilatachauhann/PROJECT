@@ -3,7 +3,11 @@ import Navbar from "../components_lite/Navbar";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { USER_API_ENDPOINT } from "@/utils/data";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -14,6 +18,12 @@ const Register = () => {
       phoneNumber:"",
       file:"",
     });
+      const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const { loading } = useSelector((store) => store.auth);
+
      const changeEventHandler = (e) => {
       setInput({ ...input, [e.target.name]: e.target.value });
     };
@@ -22,37 +32,37 @@ const Register = () => {
     };
     const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(input);
-    // const formData = new FormData();
-    // formData.append("fullname", input.fullname);
-    // formData.append("email", input.email);
-    // formData.append("password", input.password);
+    const formData = new FormData();
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("password", input.password);
     // formData.append("pancard", input.pancard);
     // formData.append("adharcard", input.adharcard);
-    // formData.append("role", input.role);
-    // formData.append("phoneNumber", input.phoneNumber);
-    // if (input.file) {
-    //   formData.append("file", input.file);
-    // }
-    // try {
-    //   dispatch(setLoading(true));
-    //   const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //     withCredentials: true,
-    //   });
-    //   if (res.data.success) {
-    //     navigate("/login");
-    //     toast.success(res.data.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   const errorMessage = error.response
-    //     ? error.response.data.message
-    //     : "An unexpected error occurred.";
-    //   toast.error(errorMessage);
-    // } finally {
-    //   dispatch(setLoading(false));
-    // }
+    formData.append("role", input.role);
+    formData.append("phoneNumber", input.phoneNumber);
+    if (input.file) {
+      formData.append("file", input.file);
+    }
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.post
+      (`${USER_API_ENDPOINT}/register`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        navigate("/login");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      const errorMessage = error.response
+        ? error.response.data.message
+        : "An unexpected error occurred.";
+      toast.error(errorMessage);
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
   return (
     <div>
@@ -111,11 +121,19 @@ const Register = () => {
 
             />
           </div>
+           {loading ? (
+            <div className="flex items-center justify-center my-10">
+              <div className="spinner-border text-blue-600" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
           <button
             type="submit"
             className="block w-full py-3 my-3 text-white  bg-gray-500 hover:bg-blue-900 rounded-md">
             Register
           </button>
+          )}
           <p className="text-gray-500 text-md my-2">
             Already have an account?
             <Link to="/login" className="text-blue-800 font-semibold">

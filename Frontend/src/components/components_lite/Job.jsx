@@ -3,8 +3,11 @@ import { Button } from "../ui/button";
 import { Bookmark } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
+import { useNavigate } from "react-router-dom";
 
 const Job = () => {
+  const navigate = useNavigate();
+  const jobId = "jdf";
   return (
     <div className='p-5 rounded-md shadow-xl bg-slate-50 border-blue-950 cursor-pointer hover:shadow-2xl shadow-blue-200 hover:p-3 '>
       
@@ -44,8 +47,13 @@ const Job = () => {
         <Badge className="text-blue-900 bg-white">Remote</Badge>
         <Badge className="text-red-900 bg-white">Full Time</Badge>
         <div className="flex items-center gap-4">
-        <Button variant="outline" className="rounded-md bg-blue-700 text-white hover:bg-blue-900 hover:text-white font-bold">Details</Button>
-        <Button variant="outline" className="rounded-md bg-red-700 text-white hover:bg-red-900 hover:text-white">Save for later</Button>
+        <Button variant="outline" 
+        onClick={()=>{
+          navigate(`/description/${jobId}`);
+        }}
+         className="rounded-md bg-blue-700 text-white hover:bg-blue-900 hover:text-white font-bold">Details</Button>
+        <Button variant="outline"
+         className="rounded-md bg-red-700 text-white hover:bg-red-900 hover:text-white">Save for later</Button>
       </div>
       </div>
       

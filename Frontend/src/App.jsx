@@ -8,6 +8,8 @@ import PrivacyPolicy from "./components/components_lite/PrivacyPolicy.jsx";
 import TermsOfService from "./components/components_lite/TermsofService.jsx";
 import Jobs from "./components/components_lite/Jobs.jsx";
 import Browse from "./components/components_lite/Browse.jsx";
+import Profile from "./components/components_lite/Profile.jsx";
+import Description from "./components/components_lite/Description.jsx";
 
 const appRouter = createBrowserRouter([
   {path:"/",
@@ -18,6 +20,14 @@ const appRouter = createBrowserRouter([
   },
     {path:"/register",
     element:<Register/>
+  },
+  {
+    path: "/Profile",
+    element: <Profile />,
+  },
+  {
+    path: "/description/:id",
+    element: <Description />,
   },
   {
     path: "/PrivacyPolicy",
@@ -39,6 +49,7 @@ const appRouter = createBrowserRouter([
     path: "/Browse",
     element: <Browse />,
   },
+  
 ]);
 function App() {
   return (

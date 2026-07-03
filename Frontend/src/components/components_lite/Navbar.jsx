@@ -1,20 +1,41 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {Popover,  PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import {Avatar, AvatarImage } from "../ui/avatar";
 import { LogOut, User2 } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import { USER_API_ENDPOINT } from "@/utils/data";
+import axios from "axios";
+import { setUser } from "@/redux/authSlice";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
+  const dispatch =useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.post(`${USER_API_ENDPOINT}/logout`, {}, { withCredentials: true });
+      if (res.data.success) {
+        navigate("/");
+        toast.success("Logged out successfully");
+        dispatch(setUser(null));
+        
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Logout failed. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
         <div>
           <h1 className="text-2xl font-bold">
-            <span className="text-blue-900"> Job </span>{" "}
-            <span className="text-red-900">Portal</span>
+            <span className="text-blue-900"><span className="font-cursive italic">A</span>spire</span>
+            <span className="text-red-900"><span className="font-cursive italic">S</span>phere</span>
           </h1>
         </div>
         <div className="flex items-center gap-10" >
@@ -59,11 +80,11 @@ const Navbar = () => {
                   <div className="flex w-fit items-center gap-2 cursor-pointer"> 
                     <User2></User2>
                     
-                    <Button variant="link">Profile</Button>
+                    <Button variant="link"><Link to={"/Profile"}>Profile</Link></Button>
                   </div>
                  <div className="flex w-fit items-center gap-2 cursor-pointer">
                   <LogOut></LogOut>
-                    <Button variant="link">Logout</Button>
+                    <Button onClick={logoutHandler} variant="link">Logout</Button>
                  </div>
                  
                 </div>
